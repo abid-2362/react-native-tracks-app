@@ -1,13 +1,22 @@
 import * as React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Button} from 'react-native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {TracksParamsList} from '../types';
 
 interface ITrackListScreenProps {}
 
-const TrackListScreen = ({}: ITrackListScreenProps) => (
-  <View style={styles.screen}>
-    <Text>...</Text>
-  </View>
-);
+const TrackListScreen = ({}: ITrackListScreenProps) => {
+  const navigation: NavigationProp<TracksParamsList> = useNavigation();
+  return (
+    <View style={styles.screen}>
+      <Text>Track List Screen</Text>
+      <Button
+        title={'Track Details'}
+        onPress={() => navigation.navigate('TrackDetails')}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   screen: {

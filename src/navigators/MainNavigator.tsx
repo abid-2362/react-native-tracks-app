@@ -7,11 +7,11 @@ import SignupScreen from '../screens/SignupScreen.tsx';
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
-        <Stack.Group screenOptions={{headerShown: false}}>
+        <Stack.Group screenOptions={{headerShown: false, title: 'Tracks App'}}>
           <Stack.Screen
             name={'BottomTabsNavigator'}
             component={BottomTabsNavigator}

@@ -8,9 +8,19 @@ const TracksStack = createNativeStackNavigator();
 interface ITracksNavigatorProps {}
 
 const TracksNavigator = ({}: ITracksNavigatorProps) => (
-  <TracksStack.Navigator screenOptions={{headerShown: false}}>
-    <TracksStack.Screen name={'TrackDetails'} component={TrackDetailsScreen} />
-    <TracksStack.Screen name={'TrackList'} component={TrackListScreen} />
+  <TracksStack.Navigator
+    screenOptions={{headerShown: true}}
+    initialRouteName={'TrackList'}>
+    <TracksStack.Screen
+      name={'TrackList'}
+      component={TrackListScreen}
+      options={{title: 'Track List'}}
+    />
+    <TracksStack.Screen
+      name={'TrackDetails'}
+      component={TrackDetailsScreen}
+      options={{title: 'Track Details'}}
+    />
   </TracksStack.Navigator>
 );
 
