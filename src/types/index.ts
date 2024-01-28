@@ -1,3 +1,5 @@
+import {GeoPosition} from 'react-native-geolocation-service';
+
 export type AuthParamsList = {
   Signin: undefined;
   Signup: undefined;
@@ -13,3 +15,5 @@ export type TabsParamsList = {
   CreateTrack: undefined;
   Account: undefined;
 };
+
+export type AddLocation = (location: GeoPosition) => void;

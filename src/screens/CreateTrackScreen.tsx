@@ -1,19 +1,27 @@
 import * as React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from '@rneui/themed';
+import Map from '../components/Map.tsx';
+import {LocationContext} from '../context/LocationContext.ts';
+import {useContext} from 'react';
 
 interface ITrackCreateScreenProps {}
 
-const CreateTrackScreen = ({}: ITrackCreateScreenProps) => (
-  <View style={styles.screen}>
-    <Text>...</Text>
-  </View>
-);
+const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
+  const {addLocation} = useContext(LocationContext);
+  return (
+    <View style={styles.screen}>
+      <Text h3>Create a Route</Text>
+      <Map />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
 
