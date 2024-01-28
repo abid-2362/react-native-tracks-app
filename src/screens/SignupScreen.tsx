@@ -7,11 +7,19 @@ import {useContext} from 'react';
 import {AuthContext} from '../context/AuthContext.tsx';
 import AuthForm from '../components/AuthForm.tsx';
 import AuthNavigationLink from '../components/AuthNavigationLink.tsx';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface ISignupScreenProps {}
 
 const SignupScreen = ({}: ISignupScreenProps) => {
-  const {state, signup} = useContext(AuthContext);
+  const {state, signup, clearErrorMessage} = useContext(AuthContext);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      clearErrorMessage();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  );
 
   return (
     <View style={styles.screen}>

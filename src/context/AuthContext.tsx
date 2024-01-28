@@ -3,23 +3,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import createDataContext from './createDataContext.tsx';
 import TrackerServer from '../api/tracker.ts';
 import {IAuthContext, IAuthState} from '../interfaces/interfaces.ts';
+import {navigate} from '../navigators/RootNavigation.ts';
 const initialState: IAuthState = {
   token: null,
   errorMessage: '',
 };
+
 /* REDUCER ACTIONS */
 const ADD_ERROR = 'ADD_ERROR';
 const REMOVE_ERROR = 'REMOVE_ERROR';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 const SIGNOUT = 'SIGNOUT';
-
 /* /REDUCER ACTIONS */
 
 const authReducer = (state: any, action: any) => {
   switch (action.type) {
     case ADD_ERROR:
       return {...state, errorMessage: action.payload};
+
     case REMOVE_ERROR:
       return {...state, errorMessage: ''};
 
@@ -28,10 +30,11 @@ const authReducer = (state: any, action: any) => {
       return {...state, token: null};
 
     case SIGNUP_SUCCESS:
-      return {...state, token: action.payload, errorMessage: ''};
-
     case SIGNIN_SUCCESS:
       return {...state, token: action.payload, errorMessage: ''};
+
+    // case SIGNIN_SUCCESS:
+    //   return {...state, token: action.payload, errorMessage: ''};
 
     default:
       return state;
@@ -59,9 +62,12 @@ const signup = (dispatch: any) => async (email: string, password: string) => {
   }
 };
 
+const clearErrorMessage = (dispatch: any) => () => {
+  dispatch({type: REMOVE_ERROR});
+};
 const signin = (dispatch: any) => async (email: string, password: string) => {
   try {
-    dispatch({type: REMOVE_ERROR});
+    clearErrorMessage(dispatch)();
     const response = await TrackerServer.post('/signin', {
       email,
       password,
@@ -81,15 +87,25 @@ const signin = (dispatch: any) => async (email: string, password: string) => {
 };
 
 const signout = (dispatch: any) => {
-  return () => {
+  return async () => {
     console.log('signout done');
+    await AsyncStorage.setItem('token', '');
     dispatch({type: SIGNOUT});
+    navigate('Signin');
   };
+};
+
+const tryLocalSignin = (dispatch: any) => async () => {
+  const token = await AsyncStorage.getItem('token');
+  if (token) {
+    return dispatch({type: SIGNIN_SUCCESS, payload: token});
+  }
+  navigate('Signin');
 };
 
 const dataContext = createDataContext(
   authReducer,
-  {signin, signup, signout},
+  {signin, signup, signout, clearErrorMessage, tryLocalSignin},
   initialState,
 );
 

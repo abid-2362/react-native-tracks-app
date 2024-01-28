@@ -10,4 +10,6 @@ export interface IAuthContext {
   signin: (title: string, content: string, onSuccess?: emptyFunction) => void;
   signup: (email: string, password: string) => void;
   signout: emptyFunction;
+  clearErrorMessage: emptyFunction;
+  tryLocalSignin: emptyFunction;
 }
