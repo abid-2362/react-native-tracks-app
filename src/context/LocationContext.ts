@@ -56,7 +56,6 @@ const addLocation =
   (dispatch: React.Dispatch<GenericActionType>) =>
   (location: ILocation, isRecording: boolean = false) => {
     dispatch({type: ADD_CURRENT_LOCATION, payload: location});
-    console.log('LocationContext.ts', 'isRecording', isRecording);
     if (isRecording) {
       dispatch({type: ADD_LOCATION, payload: location});
     }

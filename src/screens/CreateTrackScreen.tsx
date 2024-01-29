@@ -15,7 +15,6 @@ interface ITrackCreateScreenProps {}
 const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
   const {state, addLocation} = useContext(LocationContext);
   const isFocused = useIsFocused();
-  // console.log('OUTSIDE', recording);
 
   const addLocationCallback = useCallback(
     (location: GeoPosition) => {
@@ -26,7 +25,10 @@ const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
     [state.recording],
   );
 
-  const {stopObserving} = useLocation(isFocused, addLocationCallback);
+  const {stopObserving} = useLocation(
+    isFocused || state.recording,
+    addLocationCallback,
+  );
 
   if (Platform.OS === 'android') {
     return <Text>Android Version is not working because of API_KEY</Text>;

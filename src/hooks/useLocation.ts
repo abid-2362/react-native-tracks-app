@@ -75,7 +75,11 @@ const useLocation = (
     } else {
       stopWatching();
     }
-  }, [shouldTrack, addLocation, startWatching, stopWatching]);
+
+    return () => {
+      stopWatching();
+    };
+  }, [shouldTrack, addLocation]);
 
   return {getCurrentPosition, startWatching, stopWatching, stopObserving};
 };
