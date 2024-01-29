@@ -16,4 +16,5 @@ export type TabsParamsList = {
   Account: undefined;
 };
 
-export type AddLocation = (location: GeoPosition) => void;
+export type AddLocationSingleParam = (location: GeoPosition) => void;
+export type AddLocation = (location: GeoPosition, isRecording: boolean) => void;

@@ -3,6 +3,7 @@ import {AddLocation} from '../types';
 
 export type emptyFunction = () => void;
 export type optionalCallbackFunction = (onSuccess?: emptyFunction) => void;
+
 export interface IAuthState {
   token: null | string;
   errorMessage: string;
@@ -20,7 +21,7 @@ export interface IAuthContext {
 
 export type GenericActionType = {
   type: any;
-  payload: any;
+  payload?: any;
 };
 
 export interface ICoords {
@@ -37,6 +38,7 @@ export interface ILocation {
   timestamp: number;
 }
 export interface ILocationState {
+  name: string;
   recording: boolean;
   locations: ILocation[];
   currentLocation: ILocation | null;
@@ -47,6 +49,7 @@ export interface ILocationContext {
   startRecording: emptyFunction;
   stopRecording: emptyFunction;
   addLocation: AddLocation;
+  addName: (a: string) => void;
 }
 
 export interface IPoint {

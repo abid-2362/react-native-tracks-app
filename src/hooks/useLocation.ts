@@ -1,9 +1,12 @@
 import {useEffect, useRef, useState, useCallback} from 'react';
 import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
 import {errorHandler} from '../utils/utils.ts';
-import {AddLocation} from '../types';
+import {AddLocation, AddLocationSingleParam} from '../types';
 
-const useLocation = (shouldTrack: boolean, addLocation: AddLocation) => {
+const useLocation = (
+  shouldTrack: boolean,
+  addLocation: AddLocationSingleParam,
+) => {
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const watchId = useRef<number>(0);
 
@@ -21,59 +24,42 @@ const useLocation = (shouldTrack: boolean, addLocation: AddLocation) => {
 
   const getCurrentPosition = () => {
     requestLocationPermissions().catch(errorHandler);
-    Geolocation.getCurrentPosition(
-      position => {
-        addLocation(position);
-      },
-      error => {
-        // console.log(error.code, error.message);
-        console.log(error); //eslint-disable-line no-console
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 10000,
-        accuracy: {android: 'high', ios: 'bestForNavigation'},
-        distanceFilter: 10,
-        showLocationDialog: true,
-        forceRequestLocation: false,
-        forceLocationManager: false,
-      },
-    );
+    Geolocation.getCurrentPosition(addLocation, errorHandler, {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 10000,
+      accuracy: {android: 'high', ios: 'bestForNavigation'},
+      distanceFilter: 10,
+      showLocationDialog: true,
+      forceRequestLocation: false,
+      forceLocationManager: false,
+    });
   };
+
   const startTracking = useCallback(() => {
     requestLocationPermissions().catch(errorHandler);
 
     if (hasLocationPermission) {
-      watchId.current = Geolocation.watchPosition(
-        position => {
-          addLocation(position);
-        },
-        error => {
-          // See error code charts below.
-          console.log(error.code, error.message); //eslint-disable-line no-console
-        },
-        {
-          accuracy: {android: 'high', ios: 'bestForNavigation'},
-          enableHighAccuracy: true,
-          distanceFilter: 10,
-          interval: 1000,
-          fastestInterval: 1000,
-          showLocationDialog: true,
-          forceRequestLocation: false,
-          forceLocationManager: false,
-          useSignificantChanges: false,
-          showsBackgroundLocationIndicator: true,
-        },
-      );
+      watchId.current = Geolocation.watchPosition(addLocation, errorHandler, {
+        accuracy: {android: 'high', ios: 'bestForNavigation'},
+        enableHighAccuracy: true,
+        distanceFilter: 10,
+        interval: 1000,
+        fastestInterval: 1000,
+        showLocationDialog: true,
+        forceRequestLocation: false,
+        forceLocationManager: false,
+        useSignificantChanges: false,
+        showsBackgroundLocationIndicator: true,
+      });
     } else {
       // Alert.alert(
       //   'Permission Denied',
       //   'Open app and allow location permission for this app to work correctly.',
       // );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasLocationPermission]);
+    //// eslint-disable-next-line react-hooks/exhaustive-deps-1
+  }, [hasLocationPermission, addLocation]);
 
   const stopTracking = useCallback(() => {
     Geolocation.clearWatch(watchId.current);
@@ -89,7 +75,7 @@ const useLocation = (shouldTrack: boolean, addLocation: AddLocation) => {
     } else {
       stopTracking();
     }
-  }, [shouldTrack]);
+  }, [shouldTrack, addLocation, startTracking, stopTracking]);
 
   return {getCurrentPosition, startTracking, stopTracking, stopObserving};
 };
