@@ -25,10 +25,9 @@ const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
     [state.recording],
   );
 
-  const {stopObserving} = useLocation(
-    isFocused || state.recording,
-    addLocationCallback,
-  );
+  const shouldTrack = isFocused || state.recording;
+
+  const {stopObserving} = useLocation(shouldTrack, addLocationCallback);
 
   if (Platform.OS === 'android') {
     return <Text>Android Version is not working because of API_KEY</Text>;

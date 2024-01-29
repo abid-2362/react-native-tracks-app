@@ -7,10 +7,8 @@ import {LocationContext} from '../context/LocationContext.ts';
 interface IMapProps {}
 
 const Map = ({}: IMapProps) => {
-  const {
-    state: {currentLocation},
-  } = useContext(LocationContext);
-  if (!currentLocation) {
+  const {state} = useContext(LocationContext);
+  if (!state.currentLocation) {
     return null;
   }
 
@@ -19,17 +17,18 @@ const Map = ({}: IMapProps) => {
       <MapView
         style={styles.map}
         initialRegion={{
-          ...currentLocation.coords,
+          ...state.currentLocation.coords,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}>
         {/*<Polyline coordinates={points} />*/}
         <Circle
-          center={currentLocation.coords}
+          center={state.currentLocation.coords}
           radius={30}
           strokeColor={'rgba(158, 158, 255, 1.0)'}
           fillColor={'rgba(158, 158, 255, 0.3)'}
         />
+        <Polyline coordinates={state.locations.map(loc => loc.coords)} />
       </MapView>
     </>
   );
