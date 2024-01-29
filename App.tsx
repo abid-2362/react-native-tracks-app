@@ -14,6 +14,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MainNavigator from './src/navigators/MainNavigator.tsx';
 import {AuthProvider} from './src/context/AuthContext.tsx';
 import {LocationProvider} from './src/context/LocationContext.ts';
+import {TrackProvider} from './src/context/TrackContext.ts';
 
 function NavigatorComponent() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -39,11 +40,13 @@ function NavigatorComponent() {
 
 const App = () => {
   return (
-    <LocationProvider>
-      <AuthProvider>
-        <NavigatorComponent />
-      </AuthProvider>
-    </LocationProvider>
+    <TrackProvider>
+      <LocationProvider>
+        <AuthProvider>
+          <NavigatorComponent />
+        </AuthProvider>
+      </LocationProvider>
+    </TrackProvider>
   );
 };
 export default App;

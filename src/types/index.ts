@@ -18,3 +18,10 @@ export type TabsParamsList = {
 
 export type AddLocationSingleParam = (location: GeoPosition) => void;
 export type AddLocation = (location: GeoPosition, isRecording: boolean) => void;
+
+/*TrackerContext*/
+export type TrackerContext = {
+  state: any;
+  fetchTracks: any;
+  createTrack: any;
+};

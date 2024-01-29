@@ -50,6 +50,7 @@ export interface ILocationContext {
   stopRecording: emptyFunction;
   addLocation: AddLocation;
   addName: (a: string) => void;
+  resetLocationState: emptyFunction;
 }
 
 export interface IPoint {

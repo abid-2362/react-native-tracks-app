@@ -13,6 +13,7 @@ const START_RECORDING = 'START_RECORDING';
 const STOP_RECORDING = 'STOP_RECORDING';
 const ADD_LOCATION = 'ADD_LOCATION';
 const ADD_NAME = 'ADD_NAME';
+const RESET = 'RESET';
 /* implementation */
 
 const initialState: ILocationState = {
@@ -41,6 +42,9 @@ const locationReducer = (
     case ADD_NAME:
       return {...state, name: action.payload};
 
+    case RESET:
+      return {...state, name: '', locations: []};
+
     default:
       return state;
   }
@@ -61,6 +65,11 @@ const addLocation =
     }
   };
 
+const resetLocationState =
+  (dispatch: React.Dispatch<GenericActionType>) => () => {
+    dispatch({type: RESET});
+  };
+
 const addName =
   (dispatch: React.Dispatch<GenericActionType>) => (name: string) => {
     dispatch({type: ADD_NAME, payload: name});
@@ -73,6 +82,7 @@ const _a = createDataContext(
     startRecording,
     stopRecording,
     addLocation,
+    resetLocationState,
   },
   initialState,
 );
