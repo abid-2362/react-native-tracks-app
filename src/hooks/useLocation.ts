@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState, useCallback} from 'react';
-import Geolocation, {GeoPosition} from 'react-native-geolocation-service';
+import Geolocation from 'react-native-geolocation-service';
 import {errorHandler} from '../utils/utils.ts';
-import {AddLocation, AddLocationSingleParam} from '../types';
+import {AddLocationSingleParam} from '../types';
 
 const useLocation = (
   shouldTrack: boolean,
@@ -36,7 +36,7 @@ const useLocation = (
     });
   };
 
-  const startTracking = useCallback(() => {
+  const startWatching = useCallback(() => {
     requestLocationPermissions().catch(errorHandler);
 
     if (hasLocationPermission) {
@@ -61,7 +61,7 @@ const useLocation = (
     //// eslint-disable-next-line react-hooks/exhaustive-deps-1
   }, [hasLocationPermission, addLocation]);
 
-  const stopTracking = useCallback(() => {
+  const stopWatching = useCallback(() => {
     Geolocation.clearWatch(watchId.current);
   }, []);
 
@@ -71,13 +71,13 @@ const useLocation = (
 
   useEffect(() => {
     if (shouldTrack) {
-      startTracking();
+      startWatching();
     } else {
-      stopTracking();
+      stopWatching();
     }
-  }, [shouldTrack, addLocation, startTracking, stopTracking]);
+  }, [shouldTrack, addLocation, startWatching, stopWatching]);
 
-  return {getCurrentPosition, startTracking, stopTracking, stopObserving};
+  return {getCurrentPosition, startWatching, stopWatching, stopObserving};
 };
 
 export default useLocation;

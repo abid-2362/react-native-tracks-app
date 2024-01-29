@@ -13,22 +13,17 @@ import Spacer from '../components/Spacer.tsx';
 interface ITrackCreateScreenProps {}
 
 const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
-  const {
-    state: {currentLocation, recording},
-    addLocation,
-    // startRecording,
-    // stopRecording,
-  } = useContext(LocationContext);
+  const {state, addLocation} = useContext(LocationContext);
   const isFocused = useIsFocused();
   // console.log('OUTSIDE', recording);
 
   const addLocationCallback = useCallback(
     (location: GeoPosition) => {
       // console.log('INSIDE', recording);
-      addLocation(location, recording);
+      addLocation(location, state.recording);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [recording],
+    [state.recording],
   );
 
   const {stopObserving} = useLocation(isFocused, addLocationCallback);
@@ -37,7 +32,7 @@ const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
     return <Text>Android Version is not working because of API_KEY</Text>;
   }
 
-  if (!currentLocation) {
+  if (!state.currentLocation) {
     return (
       <View style={styles.screen}>
         <ActivityIndicator size={50} />
