@@ -15,7 +15,7 @@ const AccountScreen = ({}: IAccountScreenProps) => {
     <View style={styles.screen}>
       <Spacer>
         <View style={styles.row}>
-          <Text h3>Accounts Screen</Text>
+          <Text h3>My Account</Text>
           <Icon name={'settings'} onPress={openAppSettings} />
         </View>
       </Spacer>

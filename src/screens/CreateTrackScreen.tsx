@@ -3,7 +3,7 @@ import {ActivityIndicator, Platform, StyleSheet, View} from 'react-native';
 import {Text} from '@rneui/themed';
 import Map from '../components/Map.tsx';
 import {LocationContext} from '../context/LocationContext.ts';
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext} from 'react';
 import TrackForm from '../components/TrackForm.tsx';
 import {useIsFocused} from '@react-navigation/native';
 import {GeoPosition} from 'react-native-geolocation-service';
@@ -13,7 +13,6 @@ interface ITrackCreateScreenProps {}
 
 const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
   const {state, addLocation} = useContext(LocationContext);
-  const [rerender, setRerender] = useState(false);
   const isFocused = useIsFocused();
 
   const addLocationCallback = useCallback(
@@ -28,21 +27,9 @@ const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
 
   useLocation(shouldTrack, addLocationCallback);
 
-  // useEffect(() => {
-  //   if (!state.currentLocation) {
-  //     setRerender(!!state.currentLocation);
-  //   }
-  // }, [state.currentLocation]);
-
   if (Platform.OS === 'android') {
     return <Text>Android Version is not working because of API_KEY</Text>;
   }
-
-  console.log(
-    'CreateTrackScreen.tsx',
-    'state.currentLocation',
-    state.currentLocation,
-  );
 
   if (!state.currentLocation) {
     return (
@@ -54,7 +41,9 @@ const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
 
   return (
     <View style={styles.screen}>
-      <Text h3>Create a Route</Text>
+      <View style={styles.titleContainer}>
+        <Text h3>Add Track</Text>
+      </View>
       <Map />
       <TrackForm />
     </View>
@@ -64,8 +53,10 @@ const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
+  },
+  titleContainer: {
+    paddingLeft: 5,
+    marginBottom: 10,
   },
 });
 

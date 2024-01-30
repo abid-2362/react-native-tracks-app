@@ -40,7 +40,6 @@ const TrackListScreen = ({}: ITrackListScreenProps) => {
               <ListItem>
                 <ListItem.Content>
                   <ListItem.Title>{item.name}</ListItem.Title>
-                  <ListItem.Subtitle>{item.userId}</ListItem.Subtitle>
                 </ListItem.Content>
                 <ListItem.Chevron />
               </ListItem>
