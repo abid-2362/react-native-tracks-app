@@ -1,3 +1,17 @@
+# Tracks App
+A captivating React Native app designed to enhance your exploration experience - a seamless blend of functionality and aesthetics. This innovative application allows users to effortlessly create and maintain a personalized track record of their favorite destinations. Crafted with React Native technology, the app ensures a smooth and responsive user interface across various devices.
+
+# App Screenshots
+![Record List](./screenshots/TrackList.png)
+
+![Recorded Track](./screenshots/RecordedTrack.png)
+
+![Track Details](./screenshots/TrackDetails.png)
+
+![Tracking](./screenshots/Tracking.png)
+
+![Account Screen](./screenshots/AccountScreen.png)
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
