@@ -1,22 +1,34 @@
 import * as React from 'react';
 import createDataContext from './createDataContext.tsx';
-import {GenericActionType, ILocation} from '../interfaces/interfaces.ts';
-import {TrackerContext} from '../types';
+import {
+  GenericActionType,
+  ILocation,
+  ITrack,
+} from '../interfaces/interfaces.ts';
+import {TrackContext} from '../types';
 import TrackerServer from '../api/tracker.ts';
+// import {GeoPosition} from 'react-native-geolocation-service';
+
+/* CONSTANTS */
+const FETCH_TRACKS_SUCCESS = 'FETCH_TRACKS_SUCCESS';
+/* /CONSTANTS */
 
 type State = ITrack[];
-interface ITrack {}
 const initialState: State = [];
 const trackReducer = (state: State, action: GenericActionType) => {
   switch (action.type) {
+    case FETCH_TRACKS_SUCCESS:
+      return action.payload;
     default:
       return state;
   }
 };
 
-const fetchTracks = (dispatch: React.Dispatch<GenericActionType>) => () => {
-  dispatch({type: 'any_action'});
-};
+const fetchTracks =
+  (dispatch: React.Dispatch<GenericActionType>) => async () => {
+    const response = await TrackerServer.get('/tracks');
+    dispatch({type: FETCH_TRACKS_SUCCESS, payload: response.data});
+  };
 
 const createTrack =
   (dispatch: React.Dispatch<GenericActionType>) =>
@@ -42,7 +54,7 @@ const _ = createDataContext(
   initialState,
 );
 
-const {Context}: {Context: React.Context<TrackerContext>} = _;
+const {Context}: {Context: React.Context<TrackContext>} = _;
 const {Provider} = _;
 
-export {Context as TrackerContext, Provider as TrackProvider};
+export {Context as TrackContext, Provider as TrackProvider};

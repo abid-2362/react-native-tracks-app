@@ -17,7 +17,6 @@ const CreateTrackScreen = ({}: ITrackCreateScreenProps) => {
 
   const addLocationCallback = useCallback(
     (location: GeoPosition) => {
-      // console.log('INSIDE', recording);
       addLocation(location, state.recording);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

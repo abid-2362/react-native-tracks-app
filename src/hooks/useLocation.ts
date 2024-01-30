@@ -16,7 +16,6 @@ const useLocation = (
     const permission = await Geolocation.requestAuthorization('always');
     const hlp = permission === 'granted';
     setHasLocationPermission(hlp);
-
     // TODO:: Android Version of permission Implementation is pending because of NO_API_KEY for maps
     // https://reactnative.dev/docs/permissionsandroid
     // https://github.com/Agontuk/react-native-geolocation-service/blob/HEAD/docs/accuracy.md#android

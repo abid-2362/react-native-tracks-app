@@ -1,4 +1,5 @@
 import {GeoPosition} from 'react-native-geolocation-service';
+import {emptyFunction, ITrack} from '../interfaces/interfaces.ts';
 
 export type AuthParamsList = {
   Signin: undefined;
@@ -6,7 +7,7 @@ export type AuthParamsList = {
 };
 
 export type TracksParamsList = {
-  TrackDetails: undefined;
+  TrackDetails: {_id: string};
   TrackList: undefined;
 };
 
@@ -19,9 +20,9 @@ export type TabsParamsList = {
 export type AddLocationSingleParam = (location: GeoPosition) => void;
 export type AddLocation = (location: GeoPosition, isRecording: boolean) => void;
 
-/*TrackerContext*/
-export type TrackerContext = {
-  state: any;
-  fetchTracks: any;
+/*TrackContext*/
+export type TrackContext = {
+  state: ITrack[];
+  fetchTracks: emptyFunction;
   createTrack: any;
 };

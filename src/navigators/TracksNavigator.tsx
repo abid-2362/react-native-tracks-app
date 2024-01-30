@@ -14,7 +14,7 @@ const TracksNavigator = ({}: ITracksNavigatorProps) => (
     <TracksStack.Screen
       name={'TrackList'}
       component={TrackListScreen}
-      options={{title: 'Track List'}}
+      options={{title: 'Tracks'}}
     />
     <TracksStack.Screen
       name={'TrackDetails'}

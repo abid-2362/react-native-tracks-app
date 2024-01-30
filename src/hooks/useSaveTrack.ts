@@ -1,10 +1,10 @@
 import {useContext} from 'react';
 import {LocationContext} from '../context/LocationContext.ts';
-import {TrackerContext} from '../context/TrackContext.ts';
+import {TrackContext} from '../context/TrackContext.ts';
 import {navigate} from '../navigators/RootNavigation.ts';
 
 const useSaveTrack = () => {
-  const {createTrack} = useContext(TrackerContext);
+  const {createTrack} = useContext(TrackContext);
   const {state: locationState, resetLocationState} =
     useContext(LocationContext);
 

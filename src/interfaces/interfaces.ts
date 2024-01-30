@@ -1,5 +1,6 @@
 // import {GeoPosition} from 'react-native-geolocation-service';
 import {AddLocation} from '../types';
+import {GeoPosition} from 'react-native-geolocation-service';
 
 export type emptyFunction = () => void;
 export type optionalCallbackFunction = (onSuccess?: emptyFunction) => void;
@@ -24,19 +25,30 @@ export type GenericActionType = {
   payload?: any;
 };
 
-export interface ICoords {
-  accuracy: number;
-  altitude: number;
-  altitudeAccuracy: number;
-  heading: number;
-  latitude: number;
-  longitude: number;
-  speed: number;
+// export interface ICoords {
+//   accuracy: number;
+//   altitude: number;
+//   altitudeAccuracy: number;
+//   heading: number;
+//   latitude: number;
+//   longitude: number;
+//   speed: number;
+// }
+export interface ITrack {
+  _id: string;
+  userId: string;
+  name: string;
+  locations: ILocation[];
 }
-export interface ILocation {
-  coords: ICoords;
-  timestamp: number;
+
+export interface ILocation extends GeoPosition {
+  _id?: string;
 }
+// export interface ILocation {
+//   coords: GeoCoordinates;
+//   timestamp: number;
+//   _id?: string;
+// }
 export interface ILocationState {
   name: string;
   recording: boolean;
