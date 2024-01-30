@@ -12,6 +12,12 @@ A captivating React Native app designed to enhance your exploration experience -
 
 ![Account Screen](./screenshots/AccountScreen.png)
 
+# Track-Server
+This app uses a back-end for storing and fetching data.
+Server repository can be found here
+https://github.com/abid-2362/track-app-backend-express.git
+
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
